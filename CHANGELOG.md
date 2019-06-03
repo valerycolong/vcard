@@ -1,3 +1,7 @@
+## 0.0.6
+
+* Fixed minor formatting issues.
+
 ## 0.0.5
 
 * Updated the package description.

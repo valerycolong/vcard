@@ -9,9 +9,7 @@ import 'package:validators/validators.dart';
 
 import 'vcard_formatter.dart';
 
-/********************************************************************************
-    vCard, Valery Colong, May 2019
- ********************************************************************************/
+/// vCard, Valery Colong, May 2019
 
 class VCard {
 
