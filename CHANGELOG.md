@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Minor changes with README.md file.
+
 ## 0.0.3
 
 * Minor changes with README.md file.

@@ -22,8 +22,6 @@ flutter packages get
 
 Below is a simple example of how to create a basic vCard and how to save it to a file, or view its contents from the console.
 
-### Basic vCard
-
 ``` dart
 /// Import the package
 import 'package:vcard/vcard.dart';
@@ -202,7 +200,7 @@ vCard.cellPhone = [
 You can mark as a contact as an organization with the following Apple AddressBook extension property:
 
 ```dart
-    var vCard = VCards();
+    var vCard = VCard();
     vCard.isOrganization = true;
 ```
 
