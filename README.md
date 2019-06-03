@@ -45,7 +45,7 @@ vCard.note = 'Notes on contact';
 vCard.saveToFile('./contact.vcf');
 
 /// Get as formatted string
-console.log(vCard.getFormattedString());
+print(vCard.getFormattedString());
 
 ```
 
@@ -161,7 +161,7 @@ vCard.version = '3.0'; //can also support 2.1 and 4.0, certain versions only sup
 vCard.saveToFile('./contact/file.vcf');
 
 ///get as formatted string
-console.log(vCard.getFormattedString());
+print(vCard.getFormattedString());
 ```
 
 ### Multiple Email, Fax, & Phone Examples

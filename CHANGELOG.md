@@ -1,3 +1,8 @@
+## 0.0.7
+
+* Added example project to package.
+* Remove use of console.log in examples in favour or print.
+
 ## 0.0.6
 
 * Fixed minor formatting issues.
