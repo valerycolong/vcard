@@ -12,7 +12,6 @@ import 'vcard_formatter.dart';
 /// vCard, Valery Colong, May 2019
 
 class VCard {
-
   /// Specifies a value that represents a persistent, globally unique identifier associated with the vCard
   String uid;
 
@@ -122,8 +121,9 @@ class VCard {
   /// Get major version of the vCard format
   /// @return {integer}
   int getMajorVersion() {
-    String majorVersionString = (this.version != null) ? this.version.split('.')[0] : '4';
-    if ( isNumeric(majorVersionString) ) {
+    String majorVersionString =
+        (this.version != null) ? this.version.split('.')[0] : '4';
+    if (isNumeric(majorVersionString)) {
       return int.parse(majorVersionString);
     }
     return 4;
@@ -135,14 +135,13 @@ class VCard {
 
   /// Save formatted vCard to file
   /// @param  {String} filename
-  saveToFile (filename) async{
+  saveToFile(filename) async {
     String contents = getFormattedString();
 
     final directory = await getApplicationDocumentsDirectory();
     final fs = File('${directory.path}/vCard/exports/$filename');
     fs.writeAsStringSync(contents);
   }
-
 
   /// Get social media URLs
   /// @return {Map<String, String>} Social media URL username map
@@ -156,11 +155,9 @@ class VCard {
       'youtube': '',
     };
   }
-
 }
 
-class Photo{
-
+class Photo {
   String url;
   String mediaType;
   bool isBase64;
@@ -168,7 +165,7 @@ class Photo{
   /// Attach a photo from a URL
   /// @param  {string} url       URL where photo can be found
   /// @param  {string} mediaType Media type of photo (JPEG, PNG, GIF)
-  attachFromUrl (url, mediaType) {
+  attachFromUrl(url, mediaType) {
     this.url = url;
     this.mediaType = mediaType;
     this.isBase64 = false;
@@ -176,8 +173,12 @@ class Photo{
 
   /// Embed a photo from a file using base-64 encoding
   /// @param  {string} filename
-  embedFromFile(String imageFileUri) async{
-    this.mediaType = path.extension(imageFileUri).trim().toUpperCase().replaceFirst(RegExp(r'\./g'), '');
+  embedFromFile(String imageFileUri) async {
+    this.mediaType = path
+        .extension(imageFileUri)
+        .trim()
+        .toUpperCase()
+        .replaceFirst(RegExp(r'\./g'), '');
     final fs = File(imageFileUri);
     this.url = base64.encode(fs.readAsBytesSync());
     this.isBase64 = true;
@@ -190,11 +191,9 @@ class Photo{
     this.url = base64String;
     this.isBase64 = true;
   }
-
 }
 
-
-class MailingAddress{
+class MailingAddress {
   /// Represents the actual text that should be put on the mailing label when delivering a physical package
   String label = '';
 
@@ -216,5 +215,4 @@ class MailingAddress{
   final String type;
 
   MailingAddress(this.type);
-
 }

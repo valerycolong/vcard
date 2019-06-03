@@ -1,3 +1,7 @@
+## 0.1.0
+
+* Format changes on vcard.dart
+
 ## 0.0.9
 
 * Updated example README.md file.
