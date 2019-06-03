@@ -2,6 +2,10 @@
 
 * Updated example README.md file.
 
+## 0.0.8
+
+* Updated example README.md file.
+
 ## 0.0.7
 
 * Added example project to package.
