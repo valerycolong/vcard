@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Updated the package description.
+
 ## 0.0.4
 
 * Minor changes with README.md file.
