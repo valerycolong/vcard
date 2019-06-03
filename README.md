@@ -1,5 +1,4 @@
 # vCard
-=======
 
 [![pub package](https://img.shields.io/pub/v/vcard.svg)](https://pub.dartlang.org/packages/vcard)
 

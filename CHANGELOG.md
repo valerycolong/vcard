@@ -1,6 +1,10 @@
+## 0.0.3
+
+* Minor changes with README.md file.
+
 ## 0.0.2
 
-* Initial Open Source release.
+* Added meta package dependency and small changes to README.md
 
 ## 0.0.1
 

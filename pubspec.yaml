@@ -1,6 +1,6 @@
 name: vcard
 description: A dart port of vCard JS by Eric J Nesser
-version: 0.0.2
+version: 0.0.3
 author: Valery Colong<valery.colong@activspaces.com>
 homepage: https://github.com/valerycolong/vCard
 
