@@ -13,7 +13,7 @@ dependencies:
   validators: ^2.0.0+1
   path_provider: ^1.1.0
   path: ^1.6.2
-  intl: ^0.15.8
+  intl: ^0.16.0
   meta: ^1.1.6
 
 dev_dependencies:
