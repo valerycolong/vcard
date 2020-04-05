@@ -1,3 +1,7 @@
+## 0.1.1
+
+* Upgraded dependency packages
+
 ## 0.1.0
 
 * Format changes on vcard.dart

@@ -36,8 +36,7 @@ class VCardFormatter {
   /// @param  {String} mediaType       Media-type of photo (JPEG, PNG, GIF)
   /// @param  {String} isBase64        Whether or not is Base64 format
   /// @return {String}                 Formatted photo
-  String getFormattedPhoto(
-      String photoType, String url, String mediaType, bool isBase64) {
+  String getFormattedPhoto(String photoType, String url, String mediaType, bool isBase64) {
     String params;
 
     if (majorVersion >= 4) {
@@ -363,9 +362,9 @@ class VCardFormatter {
     formattedVCardString += getFormattedAddress(
         address: vCard.workAddress, encodingPrefix: encodingPrefix);
 
-    if (vCard.title != null) {
+    if (vCard.jobTitle != null) {
       formattedVCardString +=
-          'TITLE' + encodingPrefix + ':' + e(vCard.title) + nl();
+          'TITLE' + encodingPrefix + ':' + e(vCard.jobTitle) + nl();
     }
 
     if (vCard.role != null) {

@@ -92,7 +92,7 @@ class VCard {
   String source;
 
   /// Specifies the job title, functional position or function of the individual within an organization
-  String title;
+  String jobTitle;
 
   /// URL pointing to a website that represents the person in some way
   String url;

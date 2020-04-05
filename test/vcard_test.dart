@@ -5,7 +5,7 @@ import 'package:vcard/vcard.dart';
 void main() {
   test('prints formated vcard string', () {
     final vcard = VCard();
-    vcard.title = 'Dr';
+    vcard.jobTitle = 'Dr';
     vcard.firstName = 'Colong';
     vcard.middleName = 'Valery';
     vcard.lastName = 'Nyiwung';

@@ -12,7 +12,7 @@ main() {
   vCard.photo.attachFromUrl('https://www.activspaces.com/wp-content/uploads/2019/01/ActivSpaces-Logo_Dark.png', 'PNG');
   vCard.workPhone = 'Work Phone Number';
   vCard.birthday = DateTime.now();
-  vCard.title = 'Software Developer';
+  vCard.jobTitle = 'Software Developer';
   vCard.url = 'https://github.com/valerycolong';
   vCard.note = 'Notes on contact';
 
