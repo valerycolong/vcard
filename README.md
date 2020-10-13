@@ -10,7 +10,7 @@ To use this package, add `vcard` as a [dependency in your pubspec.yaml file](htt
 
 ``` dart
 dependencies:
-  vcard: any
+  vcard: ^0.1.1
 ```
 
 Then run the flutter tooling:
@@ -27,19 +27,17 @@ Below is a simple example of how to create a basic vCard and how to save it to a
 import 'package:vcard/vcard.dart';
 
 ///Create a new vCard
-var vCard = VCard();
-
-///Set properties
-vCard.firstName = 'FirstName';
-vCard.middleName = 'MiddleName';
-vCard.lastName = 'LastName';
-vCard.organization = 'ActivSpaces Labs';
-vCard.photo.attachFromUrl('/path/to/image/file.png', 'PNG');
-vCard.workPhone = 'Work Phone Number';
-vCard.birthday = DateTime.now();
-vCard.title = 'Software Developer';
-vCard.url = 'https://github.com/valerycolong';
-vCard.note = 'Notes on contact';
+var vCard = VCard(
+   firstName: 'FirstName',
+   middleName: 'MiddleName',
+   lastName: 'LastName',
+   organization: 'ActivSpaces Labs',
+   workPhone: 'Work Phone Number',
+   birthday: DateTime.now(),
+   title: 'Software Developer',
+   url: 'https://github.com/valerycolong',
+   note: 'Notes on contact'
+  );
 
 /// Save to file
 vCard.saveToFile('./contact.vcf');
