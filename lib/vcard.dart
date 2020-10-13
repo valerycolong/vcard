@@ -12,6 +12,42 @@ import 'vcard_formatter.dart';
 /// vCard, Valery Colong, May 2019
 
 class VCard {
+  VCard(
+      {this.anniversary,
+      this.birthday,
+      this.cellPhone,
+      this.email,
+      this.firstName,
+      this.formattedName,
+      this.gender,
+      this.homeAddress,
+      this.homeFax,
+      this.homePhone,
+      this.jobTitle,
+      this.lastName,
+      this.logo,
+      this.middleName,
+      this.namePrefix,
+      this.nameSuffix,
+      this.nickname,
+      this.note,
+      this.isOrganization = false,
+      this.organization,
+      this.otherEmail,
+      this.otherPhone,
+      this.pagerPhone,
+      this.photo,
+      this.role,
+      this.socialUrls,
+      this.source,
+      this.uid,
+      this.url,
+      this.workAddress,
+      this.workEmail,
+      this.workFax,
+      this.workPhone,
+      this.workUrl});
+
   /// Specifies a value that represents a persistent, globally unique identifier associated with the vCard
   String uid;
 
@@ -37,13 +73,13 @@ class VCard {
   var otherEmail;
 
   /// First name
-  String firstName = '';
+  String firstName;
 
   /// Middle name
-  String middleName = '';
+  String middleName;
 
   /// Last name
-  String lastName = '';
+  String lastName;
 
   /// Formatted name string associated with the vCard object (will automatically populate if not set)
   String formattedName;
@@ -61,7 +97,7 @@ class VCard {
   String gender;
 
   /// Home mailing address
-  MailingAddress homeAddress = MailingAddress('HOME');
+  MailingAddress homeAddress = MailingAddress(type: 'HOME');
 
   /// Home phone
   var homePhone;
@@ -70,7 +106,7 @@ class VCard {
   var homeFax;
 
   /// Individual's photo
-  Photo photo = Photo();
+  Photo photo;
 
   /// Specifies supplemental information or a comment that is associated with the vCard
   String note;
@@ -79,7 +115,7 @@ class VCard {
   String organization;
 
   /// Logo
-  Photo logo = Photo();
+  Photo logo;
 
   /// The role, occupation, or business category of the vCard object within an organization
   String role;
@@ -101,7 +137,7 @@ class VCard {
   String workUrl;
 
   /// Work mailing address
-  MailingAddress workAddress = MailingAddress('WORK');
+  MailingAddress workAddress = MailingAddress(type: 'WORK');
 
   /// Work phone
   var workPhone;
@@ -113,7 +149,7 @@ class VCard {
   var otherPhone;
 
   /// Whether or not this vCard object represents an organization
-  bool isOrganization = false;
+  bool isOrganization;
 
   /// vCard version
   String version = '3.0';
@@ -194,25 +230,32 @@ class Photo {
 }
 
 class MailingAddress {
+  MailingAddress(
+      {this.label,
+      this.city,
+      this.countryRegion,
+      this.postalCode,
+      this.stateProvince,
+      this.street,
+      this.type});
+
   /// Represents the actual text that should be put on the mailing label when delivering a physical package
-  String label = '';
+  String label;
 
   /// Street address
-  String street = '';
+  String street;
 
   /// City
-  String city = '';
+  String city;
 
   /// State or province
-  String stateProvince = '';
+  String stateProvince;
 
   /// Postal code
-  String postalCode = '';
+  String postalCode;
 
   /// Country or region
-  String countryRegion = '';
+  String countryRegion;
 
   final String type;
-
-  MailingAddress(this.type);
 }
