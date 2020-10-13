@@ -12,6 +12,43 @@ import 'vcard_formatter.dart';
 /// vCard, Valery Colong, May 2019
 
 class VCard {
+  VCard(
+      {this.anniversary,
+      this.birthday,
+      this.cellPhone,
+      this.email,
+      this.firstName,
+      this.formattedName,
+      this.gender,
+      this.homeAddress,
+      this.homeFax,
+      this.homePhone,
+      this.isOrganization,
+      this.jobTitle,
+      this.lastName,
+      this.logo,
+      this.middleName,
+      this.namePrefix,
+      this.nameSuffix,
+      this.nickname,
+      this.note,
+      this.organization,
+      this.otherEmail,
+      this.otherPhone,
+      this.pagerPhone,
+      this.photo,
+      this.role,
+      this.socialUrls,
+      this.source,
+      this.uid,
+      this.url,
+      this.version,
+      this.workAddress,
+      this.workEmail,
+      this.workFax,
+      this.workPhone,
+      this.workUrl});
+
   /// Specifies a value that represents a persistent, globally unique identifier associated with the vCard
   String uid;
 
@@ -61,7 +98,7 @@ class VCard {
   String gender;
 
   /// Home mailing address
-  MailingAddress homeAddress = MailingAddress('HOME');
+  MailingAddress homeAddress = MailingAddress(type: 'HOME');
 
   /// Home phone
   var homePhone;
@@ -101,7 +138,7 @@ class VCard {
   String workUrl;
 
   /// Work mailing address
-  MailingAddress workAddress = MailingAddress('WORK');
+  MailingAddress workAddress = MailingAddress(type: 'WORK');
 
   /// Work phone
   var workPhone;
@@ -194,6 +231,15 @@ class Photo {
 }
 
 class MailingAddress {
+  MailingAddress(
+      {this.label,
+      this.city,
+      this.countryRegion,
+      this.postalCode,
+      this.stateProvince,
+      this.street,
+      this.type});
+
   /// Represents the actual text that should be put on the mailing label when delivering a physical package
   String label = '';
 
@@ -213,6 +259,4 @@ class MailingAddress {
   String countryRegion = '';
 
   final String type;
-
-  MailingAddress(this.type);
 }
