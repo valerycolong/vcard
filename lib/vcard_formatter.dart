@@ -36,7 +36,8 @@ class VCardFormatter {
   /// @param  {String} mediaType       Media-type of photo (JPEG, PNG, GIF)
   /// @param  {String} isBase64        Whether or not is Base64 format
   /// @return {String}                 Formatted photo
-  String getFormattedPhoto(String photoType, String url, String mediaType, bool isBase64) {
+  String getFormattedPhoto(
+      String photoType, String url, String mediaType, bool isBase64) {
     String params;
 
     if (majorVersion >= 4) {
@@ -61,20 +62,18 @@ class VCardFormatter {
       {@required MailingAddress address, @required String encodingPrefix}) {
     var formattedAddress = '';
 
-    if (address.label.isNotEmpty ||
-        address.street.isNotEmpty ||
-        address.city.isNotEmpty ||
-        address.stateProvince.isNotEmpty ||
-        address.postalCode.isNotEmpty ||
-        address.countryRegion.isNotEmpty) {
+    if (address.label != null ||
+        address.street != null ||
+        address.city != null ||
+        address.stateProvince != null ||
+        address.postalCode != null ||
+        address.countryRegion != null) {
       if (majorVersion >= 4) {
         formattedAddress = 'ADR' +
             encodingPrefix +
             ';TYPE=' +
             address.type +
-            (address.label.isNotEmpty
-                ? ';LABEL="' + e(address.label) + '"'
-                : '') +
+            (address.label != null ? ';LABEL="' + e(address.label) + '"' : '') +
             ':;;' +
             e(address.street) +
             ';' +
@@ -87,7 +86,7 @@ class VCardFormatter {
             e(address.countryRegion) +
             nl();
       } else {
-        if (address.label.isNotEmpty) {
+        if (address.label != null) {
           formattedAddress = 'LABEL' +
               encodingPrefix +
               ';TYPE=' +
@@ -128,8 +127,8 @@ class VCardFormatter {
     majorVersion = vCard.getMajorVersion();
 
     String formattedVCardString = '';
-    formattedVCardString += 'BEGIN:VCARD' + nl();
-    formattedVCardString += 'VERSION:' + vCard.version + nl();
+    formattedVCardString = formattedVCardString + ("BEGIN:VCARD") + nl();
+    formattedVCardString = formattedVCardString + 'VERSION: 4' + nl();
 
     String encodingPrefix = majorVersion >= 4 ? '' : ';CHARSET=UTF-8';
     String formattedName = vCard.formattedName;
@@ -138,16 +137,22 @@ class VCardFormatter {
       formattedName = '';
 
       [vCard.firstName, vCard.middleName, vCard.lastName].forEach((name) {
-        if ((name.isNotEmpty) && (formattedName.isNotEmpty)) {
-          formattedName += ' ';
+        if (name == null) {
+          formattedName = formattedName + ' ';
+        } else {
+          formattedName = formattedName + name;
         }
-        formattedName += name;
       });
     }
 
-    formattedVCardString +=
-        'FN' + encodingPrefix + ':' + e(formattedName) + nl();
-    formattedVCardString += 'N' +
+    formattedVCardString = formattedVCardString +
+        'FN' +
+        encodingPrefix +
+        ':' +
+        e(formattedName) +
+        nl();
+    formattedVCardString = formattedVCardString +
+        'N' +
         encodingPrefix +
         ':' +
         e(vCard.lastName) +
@@ -162,26 +167,40 @@ class VCardFormatter {
         nl();
 
     if ((vCard.nickname != null) && (majorVersion >= 3)) {
-      formattedVCardString +=
-          'NICKNAME' + encodingPrefix + ':' + e(vCard.nickname) + nl();
+      formattedVCardString = formattedVCardString +
+          'NICKNAME' +
+          encodingPrefix +
+          ':' +
+          e(vCard.nickname) +
+          nl();
     }
 
     if (vCard.gender != null) {
-      formattedVCardString += 'GENDER:' + e(vCard.gender) + nl();
+      formattedVCardString =
+          formattedVCardString + 'GENDER:' + e(vCard.gender) + nl();
     }
 
     if (vCard.uid != null) {
-      formattedVCardString +=
-          'UID' + encodingPrefix + ':' + e(vCard.uid) + nl();
+      formattedVCardString = formattedVCardString +
+          'UID' +
+          encodingPrefix +
+          ':' +
+          e(vCard.uid) +
+          nl();
     }
 
     if (vCard.birthday != null) {
-      formattedVCardString += 'BDAY:' + formatVCardDate(vCard.birthday) + nl();
+      formattedVCardString = formattedVCardString +
+          'BDAY:' +
+          formatVCardDate(vCard.birthday) +
+          nl();
     }
 
     if ((vCard.anniversary != null) && (majorVersion >= 4)) {
-      formattedVCardString +=
-          'ANNIVERSARY:' + formatVCardDate(vCard.anniversary) + nl();
+      formattedVCardString = formattedVCardString +
+          'ANNIVERSARY:' +
+          formatVCardDate(vCard.anniversary) +
+          nl();
     }
 
     if (vCard.email != null) {
@@ -190,17 +209,26 @@ class VCardFormatter {
       }
       vCard.email.forEach((address) {
         if (majorVersion >= 4) {
-          formattedVCardString +=
-              'EMAIL' + encodingPrefix + ';type=HOME:' + e(address) + nl();
+          formattedVCardString = formattedVCardString +
+              'EMAIL' +
+              encodingPrefix +
+              ';type=HOME:' +
+              e(address) +
+              nl();
         } else if (majorVersion >= 3 && majorVersion < 4) {
-          formattedVCardString += 'EMAIL' +
+          formattedVCardString = formattedVCardString +
+              'EMAIL' +
               encodingPrefix +
               ';type=HOME,INTERNET:' +
               e(address) +
               nl();
         } else {
-          formattedVCardString +=
-              'EMAIL' + encodingPrefix + ';HOME;INTERNET:' + e(address) + nl();
+          formattedVCardString = formattedVCardString +
+              'EMAIL' +
+              encodingPrefix +
+              ';HOME;INTERNET:' +
+              e(address) +
+              nl();
         }
       });
     }
@@ -211,17 +239,26 @@ class VCardFormatter {
       }
       vCard.workEmail.forEach((address) {
         if (majorVersion >= 4) {
-          formattedVCardString +=
-              'EMAIL' + encodingPrefix + ';type=WORK:' + e(address) + nl();
+          formattedVCardString = formattedVCardString +
+              'EMAIL' +
+              encodingPrefix +
+              ';type=WORK:' +
+              e(address) +
+              nl();
         } else if (majorVersion >= 3 && majorVersion < 4) {
-          formattedVCardString += 'EMAIL' +
+          formattedVCardString = formattedVCardString +
+              'EMAIL' +
               encodingPrefix +
               ';type=WORK,INTERNET:' +
               e(address) +
               nl();
         } else {
-          formattedVCardString +=
-              'EMAIL' + encodingPrefix + ';WORK;INTERNET:' + e(address) + nl();
+          formattedVCardString = formattedVCardString +
+              'EMAIL' +
+              encodingPrefix +
+              ';WORK;INTERNET:' +
+              e(address) +
+              nl();
         }
       });
     }
@@ -232,29 +269,40 @@ class VCardFormatter {
       }
       vCard.otherEmail.forEach((address) {
         if (majorVersion >= 4) {
-          formattedVCardString +=
-              'EMAIL' + encodingPrefix + ';type=OTHER:' + e(address) + nl();
+          formattedVCardString = formattedVCardString +
+              'EMAIL' +
+              encodingPrefix +
+              ';type=OTHER:' +
+              e(address) +
+              nl();
         } else if (majorVersion >= 3 && majorVersion < 4) {
-          formattedVCardString += 'EMAIL' +
+          formattedVCardString = formattedVCardString +
+              'EMAIL' +
               encodingPrefix +
               ';type=OTHER,INTERNET:' +
               e(address) +
               nl();
         } else {
-          formattedVCardString +=
-              'EMAIL' + encodingPrefix + ';OTHER;INTERNET:' + e(address) + nl();
+          formattedVCardString = formattedVCardString +
+              'EMAIL' +
+              encodingPrefix +
+              ';OTHER;INTERNET:' +
+              e(address) +
+              nl();
         }
       });
     }
 
-    if (vCard.logo.url != null) {
-      formattedVCardString += getFormattedPhoto(
-          'LOGO', vCard.logo.url, vCard.logo.mediaType, vCard.logo.isBase64);
+    if (vCard.logo != null) {
+      formattedVCardString = formattedVCardString +
+          getFormattedPhoto('LOGO', vCard.logo.url, vCard.logo.mediaType,
+              vCard.logo.isBase64);
     }
 
-    if (vCard.photo.url != null) {
-      formattedVCardString += getFormattedPhoto('PHOTO', vCard.photo.url,
-          vCard.photo.mediaType, vCard.photo.isBase64);
+    if (vCard.photo != null) {
+      formattedVCardString = formattedVCardString +
+          getFormattedPhoto('PHOTO', vCard.photo.url, vCard.photo.mediaType,
+              vCard.photo.isBase64);
     }
 
     if (vCard.cellPhone != null) {
@@ -264,10 +312,13 @@ class VCardFormatter {
 
       vCard.cellPhone.forEach((number) {
         if (majorVersion >= 4) {
-          formattedVCardString +=
-              'TEL;VALUE=uri;TYPE="voice,cell":tel:' + e(number) + nl();
+          formattedVCardString = formattedVCardString +
+              'TEL;VALUE=uri;TYPE="voice,cell":tel:' +
+              e(number) +
+              nl();
         } else {
-          formattedVCardString += 'TEL;TYPE=CELL:' + e(number) + nl();
+          formattedVCardString =
+              formattedVCardString + 'TEL;TYPE=CELL:' + e(number) + nl();
         }
       });
     }
@@ -278,10 +329,13 @@ class VCardFormatter {
       }
       vCard.pagerPhone.forEach((number) {
         if (majorVersion >= 4) {
-          formattedVCardString +=
-              'TEL;VALUE=uri;TYPE="pager,cell":tel:' + e(number) + nl();
+          formattedVCardString = formattedVCardString +
+              'TEL;VALUE=uri;TYPE="pager,cell":tel:' +
+              e(number) +
+              nl();
         } else {
-          formattedVCardString += 'TEL;TYPE=PAGER:' + e(number) + nl();
+          formattedVCardString =
+              formattedVCardString + 'TEL;TYPE=PAGER:' + e(number) + nl();
         }
       });
     }
@@ -292,10 +346,13 @@ class VCardFormatter {
       }
       vCard.homePhone.forEach((number) {
         if (majorVersion >= 4) {
-          formattedVCardString +=
-              'TEL;VALUE=uri;TYPE="voice,home":tel:' + e(number) + nl();
+          formattedVCardString = formattedVCardString +
+              'TEL;VALUE=uri;TYPE="voice,home":tel:' +
+              e(number) +
+              nl();
         } else {
-          formattedVCardString += 'TEL;TYPE=HOME,VOICE:' + e(number) + nl();
+          formattedVCardString =
+              formattedVCardString + 'TEL;TYPE=HOME,VOICE:' + e(number) + nl();
         }
       });
     }
@@ -306,10 +363,13 @@ class VCardFormatter {
       }
       vCard.workPhone.forEach((number) {
         if (majorVersion >= 4) {
-          formattedVCardString +=
-              'TEL;VALUE=uri;TYPE="voice,work":tel:' + e(number) + nl();
+          formattedVCardString = formattedVCardString +
+              'TEL;VALUE=uri;TYPE="voice,work":tel:' +
+              e(number) +
+              nl();
         } else {
-          formattedVCardString += 'TEL;TYPE=WORK,VOICE:' + e(number) + nl();
+          formattedVCardString =
+              formattedVCardString + 'TEL;TYPE=WORK,VOICE:' + e(number) + nl();
         }
       });
     }
@@ -320,10 +380,13 @@ class VCardFormatter {
       }
       vCard.homeFax.forEach((number) {
         if (majorVersion >= 4) {
-          formattedVCardString +=
-              'TEL;VALUE=uri;TYPE="fax,home":tel:' + e(number) + nl();
+          formattedVCardString = formattedVCardString +
+              'TEL;VALUE=uri;TYPE="fax,home":tel:' +
+              e(number) +
+              nl();
         } else {
-          formattedVCardString += 'TEL;TYPE=HOME,FAX:' + e(number) + nl();
+          formattedVCardString =
+              formattedVCardString + 'TEL;TYPE=HOME,FAX:' + e(number) + nl();
         }
       });
     }
@@ -334,10 +397,13 @@ class VCardFormatter {
       }
       vCard.workFax.forEach((number) {
         if (majorVersion >= 4) {
-          formattedVCardString +=
-              'TEL;VALUE=uri;TYPE="fax,work":tel:' + e(number) + nl();
+          formattedVCardString = formattedVCardString +
+              'TEL;VALUE=uri;TYPE="fax,work":tel:' +
+              e(number) +
+              nl();
         } else {
-          formattedVCardString += 'TEL;TYPE=WORK,FAX:' + e(number) + nl();
+          formattedVCardString =
+              formattedVCardString + 'TEL;TYPE=WORK,FAX:' + e(number) + nl();
         }
       });
     }
@@ -348,54 +414,87 @@ class VCardFormatter {
       }
       vCard.otherPhone.forEach((number) {
         if (majorVersion >= 4) {
-          formattedVCardString +=
-              'TEL;VALUE=uri;TYPE="voice,other":tel:' + e(number) + nl();
+          formattedVCardString = formattedVCardString +
+              'TEL;VALUE=uri;TYPE="voice,other":tel:' +
+              e(number) +
+              nl();
         } else {
-          formattedVCardString += 'TEL;TYPE=OTHER:' + e(number) + nl();
+          formattedVCardString =
+              formattedVCardString + 'TEL;TYPE=OTHER:' + e(number) + nl();
         }
       });
     }
 
-    // Format Addresses
-    formattedVCardString += getFormattedAddress(
-        address: vCard.homeAddress, encodingPrefix: encodingPrefix);
-    formattedVCardString += getFormattedAddress(
-        address: vCard.workAddress, encodingPrefix: encodingPrefix);
+    if (vCard.homeAddress != null)
+      // Format Addresses
+      formattedVCardString = formattedVCardString +
+          getFormattedAddress(
+              address: vCard.homeAddress, encodingPrefix: encodingPrefix);
+
+    if (vCard.workAddress != null)
+      formattedVCardString = formattedVCardString +
+          getFormattedAddress(
+              address: vCard.workAddress, encodingPrefix: encodingPrefix);
 
     if (vCard.jobTitle != null) {
-      formattedVCardString +=
-          'TITLE' + encodingPrefix + ':' + e(vCard.jobTitle) + nl();
+      formattedVCardString = formattedVCardString +
+          'TITLE' +
+          encodingPrefix +
+          ':' +
+          e(vCard.jobTitle) +
+          nl();
     }
 
     if (vCard.role != null) {
-      formattedVCardString +=
-          'ROLE' + encodingPrefix + ':' + e(vCard.role) + nl();
+      formattedVCardString = formattedVCardString +
+          'ROLE' +
+          encodingPrefix +
+          ':' +
+          e(vCard.role) +
+          nl();
     }
 
     if (vCard.organization != null) {
-      formattedVCardString +=
-          'ORG' + encodingPrefix + ':' + e(vCard.organization) + nl();
+      formattedVCardString = formattedVCardString +
+          'ORG' +
+          encodingPrefix +
+          ':' +
+          e(vCard.organization) +
+          nl();
     }
 
     if (vCard.url != null) {
-      formattedVCardString +=
-          'URL' + encodingPrefix + ':' + e(vCard.url) + nl();
+      formattedVCardString = formattedVCardString +
+          'URL' +
+          encodingPrefix +
+          ':' +
+          e(vCard.url) +
+          nl();
     }
 
     if (vCard.workUrl != null) {
-      formattedVCardString +=
-          'URL;type=WORK' + encodingPrefix + ':' + e(vCard.workUrl) + nl();
+      formattedVCardString = formattedVCardString +
+          'URL;type=WORK' +
+          encodingPrefix +
+          ':' +
+          e(vCard.workUrl) +
+          nl();
     }
 
     if (vCard.note != null) {
-      formattedVCardString +=
-          'NOTE' + encodingPrefix + ':' + e(vCard.note) + nl();
+      formattedVCardString = formattedVCardString +
+          'NOTE' +
+          encodingPrefix +
+          ':' +
+          e(vCard.note) +
+          nl();
     }
 
     if (vCard.socialUrls != null) {
       vCard.socialUrls.forEach((key, value) {
         if ((value != null) && (value.isNotEmpty)) {
-          formattedVCardString += 'X-SOCIALPROFILE' +
+          formattedVCardString = formattedVCardString +
+              'X-SOCIALPROFILE' +
               encodingPrefix +
               ';TYPE=' +
               key +
@@ -407,17 +506,22 @@ class VCardFormatter {
     }
 
     if (vCard.source != null) {
-      formattedVCardString +=
-          'SOURCE' + encodingPrefix + ':' + e(vCard.source) + nl();
+      formattedVCardString = formattedVCardString +
+          'SOURCE' +
+          encodingPrefix +
+          ':' +
+          e(vCard.source) +
+          nl();
     }
 
-    formattedVCardString += 'REV:' + DateTime.now().toIso8601String() + nl();
+    formattedVCardString =
+        formattedVCardString + 'REV:' + DateTime.now().toIso8601String() + nl();
 
     if (vCard.isOrganization) {
-      formattedVCardString += 'X-ABShowAs:COMPANY' + nl();
+      formattedVCardString = formattedVCardString + 'X-ABShowAs:COMPANY' + nl();
     }
 
-    formattedVCardString += 'END:VCARD' + nl();
+    formattedVCardString = formattedVCardString + 'END:VCARD' + nl();
     return formattedVCardString;
   }
 }
