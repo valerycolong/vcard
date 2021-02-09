@@ -13,13 +13,10 @@ class VCardFormatter {
   /// @return {String}     encoded string
   String e(String value) {
     if ((value != null) && (value.isNotEmpty)) {
-//      if (value is String) {
-//        value = '' + value;
-//      }
       return value
-          .replaceAll(RegExp(r'/\n/g'), '\\n')
-          .replaceAll(RegExp(r'/,/g'), '\\,')
-          .replaceAll(RegExp(r'/;/g'), '\\;');
+          .replaceAll(RegExp('\n'), '\\n')
+          .replaceAll(RegExp(','), '\\,')
+          .replaceAll(RegExp(';'), '\\;');
     }
     return '';
   }
