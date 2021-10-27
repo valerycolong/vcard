@@ -13,13 +13,13 @@ import 'vcard_formatter.dart';
 
 class VCard {
   /// Specifies a value that represents a persistent, globally unique identifier associated with the vCard
-  String uid;
+  String? uid;
 
   /// Date of birth
-  DateTime birthday;
+  DateTime? birthday;
 
   /// Anniversary
-  DateTime anniversary;
+  DateTime? anniversary;
 
   /// Cell phone number
   var cellPhone;
@@ -46,7 +46,7 @@ class VCard {
   String lastName = '';
 
   /// Formatted name string associated with the vCard object (will automatically populate if not set)
-  String formattedName;
+  String? formattedName;
 
   /// Prefix for individual's name
   String namePrefix = '';
@@ -58,7 +58,7 @@ class VCard {
   String nickname = '';
 
   /// Gender. Must be M or F for Male or Female
-  String gender;
+  String? gender;
 
   /// Home mailing address
   MailingAddress homeAddress = MailingAddress('HOME');
@@ -73,32 +73,32 @@ class VCard {
   Photo photo = Photo();
 
   /// Specifies supplemental information or a comment that is associated with the vCard
-  String note;
+  String? note;
 
   /// The name and optionally the unit(s) of the organization associated with the vCard object
-  String organization;
+  String? organization;
 
   /// Logo
   Photo logo = Photo();
 
   /// The role, occupation, or business category of the vCard object within an organization
-  String role;
+  String? role;
 
   /// Social URLs attached to the vCard object (ex: Facebook, Twitter, LinkedIn)
   /// @type {Map<String, String>}
   Map<String, String> socialUrls = getSocialUrls();
 
   /// A URL that can be used to get the latest version of this vCard
-  String source;
+  String? source;
 
   /// Specifies the job title, functional position or function of the individual within an organization
-  String jobTitle;
+  String? jobTitle;
 
   /// URL pointing to a website that represents the person in some way
-  String url;
+  String? url;
 
   /// URL pointing to a website that represents the person's work in some way
-  String workUrl;
+  String? workUrl;
 
   /// Work mailing address
   MailingAddress workAddress = MailingAddress('WORK');
@@ -122,7 +122,7 @@ class VCard {
   /// @return {integer}
   int getMajorVersion() {
     String majorVersionString =
-        (this.version != null) ? this.version.split('.')[0] : '4';
+        (this.version.isNotEmpty) ? this.version.split('.')[0] : '4';
     if (isNumeric(majorVersionString)) {
       return int.parse(majorVersionString);
     }
@@ -158,9 +158,9 @@ class VCard {
 }
 
 class Photo {
-  String url;
-  String mediaType;
-  bool isBase64;
+  String? url;
+  String? mediaType;
+  bool? isBase64;
 
   /// Attach a photo from a URL
   /// @param  {string} url       URL where photo can be found
