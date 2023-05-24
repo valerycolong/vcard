@@ -1,6 +1,7 @@
 name: vcard_example
 description: Demonstrates how to use the vcard package - a dart port of vCard JS by Eric J Nesser.
-
+environment:
+  sdk: '>=3.0.0'
 dependencies:
   flutter:
     sdk: flutter
