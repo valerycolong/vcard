@@ -1,7 +1,7 @@
 library vcard;
 
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
+// import 'package:meta/meta.dart';
 
 import 'vcard.dart';
 
@@ -11,11 +11,11 @@ class VCardFormatter {
   /// Encode string
   /// @param  {String}     value to encode
   /// @return {String}     encoded string
-  String e(String value) {
+  String e(String? value) {
     if ((value != null) && (value.isNotEmpty)) {
-//      if (value is String) {
-//        value = '' + value;
-//      }
+     // if (value is String) {
+     //   value = '' + value;
+     // }
       return value
           .replaceAll(RegExp(r'/\n/g'), '\\n')
           .replaceAll(RegExp(r'/,/g'), '\\,')
@@ -58,7 +58,7 @@ class VCardFormatter {
   /// @param {String}         Encoding prefix encodingPrefix
   /// @return {String}         Formatted address
   String getFormattedAddress(
-      {@required MailingAddress address, @required String encodingPrefix}) {
+      {required MailingAddress address, required String encodingPrefix}) {
     var formattedAddress = '';
 
     if (address.label.isNotEmpty ||
@@ -121,7 +121,7 @@ class VCardFormatter {
   /// @param  {Date}       date to encode
   /// @return {String}     encoded date
   String formatVCardDate(DateTime date) {
-    return DateFormat("yyyyMMdd").format(date);
+    return DateFormat('yyyyMMdd').format(date);
   }
 
   String getFormattedString(VCard vCard) {
@@ -132,10 +132,7 @@ class VCardFormatter {
     formattedVCardString += 'VERSION:' + vCard.version + nl();
 
     String encodingPrefix = majorVersion >= 4 ? '' : ';CHARSET=UTF-8';
-    String formattedName = vCard.formattedName;
-
-    if (formattedName == null) {
-      formattedName = '';
+    String formattedName = vCard.formattedName??'';
 
       [vCard.firstName, vCard.middleName, vCard.lastName].forEach((name) {
         if ((name.isNotEmpty) && (formattedName.isNotEmpty)) {
@@ -143,7 +140,7 @@ class VCardFormatter {
         }
         formattedName += name;
       });
-    }
+
 
     formattedVCardString +=
         'FN' + encodingPrefix + ':' + e(formattedName) + nl();
@@ -161,27 +158,27 @@ class VCardFormatter {
         e(vCard.nameSuffix) +
         nl();
 
-    if ((vCard.nickname != null) && (majorVersion >= 3)) {
+    if ((vCard.nickname.isNotEmpty) && (majorVersion >= 3)) {
       formattedVCardString +=
           'NICKNAME' + encodingPrefix + ':' + e(vCard.nickname) + nl();
     }
 
     if (vCard.gender != null) {
-      formattedVCardString += 'GENDER:' + e(vCard.gender) + nl();
+      formattedVCardString += 'GENDER:' + e(vCard.gender??'') + nl();
     }
 
     if (vCard.uid != null) {
       formattedVCardString +=
-          'UID' + encodingPrefix + ':' + e(vCard.uid) + nl();
+          'UID' + encodingPrefix + ':' + e(vCard.uid??'') + nl();
     }
 
     if (vCard.birthday != null) {
-      formattedVCardString += 'BDAY:' + formatVCardDate(vCard.birthday) + nl();
+      formattedVCardString += 'BDAY:' + formatVCardDate(vCard.birthday!) + nl();
     }
 
     if ((vCard.anniversary != null) && (majorVersion >= 4)) {
       formattedVCardString +=
-          'ANNIVERSARY:' + formatVCardDate(vCard.anniversary) + nl();
+          'ANNIVERSARY:' + formatVCardDate(vCard.anniversary!) + nl();
     }
 
     if (vCard.email != null) {
@@ -249,12 +246,12 @@ class VCardFormatter {
 
     if (vCard.logo.url != null) {
       formattedVCardString += getFormattedPhoto(
-          'LOGO', vCard.logo.url, vCard.logo.mediaType, vCard.logo.isBase64);
+          'LOGO', vCard.logo.url??'', vCard.logo.mediaType??'', vCard.logo.isBase64??false);
     }
 
     if (vCard.photo.url != null) {
-      formattedVCardString += getFormattedPhoto('PHOTO', vCard.photo.url,
-          vCard.photo.mediaType, vCard.photo.isBase64);
+      formattedVCardString += getFormattedPhoto('PHOTO', vCard.photo.url??'',
+          vCard.photo.mediaType??'', vCard.photo.isBase64??false);
     }
 
     if (vCard.cellPhone != null) {
@@ -364,37 +361,37 @@ class VCardFormatter {
 
     if (vCard.jobTitle != null) {
       formattedVCardString +=
-          'TITLE' + encodingPrefix + ':' + e(vCard.jobTitle) + nl();
+          'TITLE' + encodingPrefix + ':' + e(vCard.jobTitle??'') + nl();
     }
 
     if (vCard.role != null) {
       formattedVCardString +=
-          'ROLE' + encodingPrefix + ':' + e(vCard.role) + nl();
+          'ROLE' + encodingPrefix + ':' + e(vCard.role??'') + nl();
     }
 
     if (vCard.organization != null) {
       formattedVCardString +=
-          'ORG' + encodingPrefix + ':' + e(vCard.organization) + nl();
+          'ORG' + encodingPrefix + ':' + e(vCard.organization??'') + nl();
     }
 
     if (vCard.url != null) {
       formattedVCardString +=
-          'URL' + encodingPrefix + ':' + e(vCard.url) + nl();
+          'URL' + encodingPrefix + ':' + e(vCard.url??'') + nl();
     }
 
     if (vCard.workUrl != null) {
       formattedVCardString +=
-          'URL;type=WORK' + encodingPrefix + ':' + e(vCard.workUrl) + nl();
+          'URL;type=WORK' + encodingPrefix + ':' + e(vCard.workUrl??'') + nl();
     }
 
     if (vCard.note != null) {
       formattedVCardString +=
-          'NOTE' + encodingPrefix + ':' + e(vCard.note) + nl();
+          'NOTE' + encodingPrefix + ':' + e(vCard.note??'') + nl();
     }
 
-    if (vCard.socialUrls != null) {
+    if (vCard.socialUrls.isNotEmpty) {
       vCard.socialUrls.forEach((key, value) {
-        if ((value != null) && (value.isNotEmpty)) {
+        if  (value.isNotEmpty) {
           formattedVCardString += 'X-SOCIALPROFILE' +
               encodingPrefix +
               ';TYPE=' +
@@ -408,7 +405,7 @@ class VCardFormatter {
 
     if (vCard.source != null) {
       formattedVCardString +=
-          'SOURCE' + encodingPrefix + ':' + e(vCard.source) + nl();
+          'SOURCE' + encodingPrefix + ':' + e(vCard.source??'') + nl();
     }
 
     formattedVCardString += 'REV:' + DateTime.now().toIso8601String() + nl();
